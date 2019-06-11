@@ -21,11 +21,14 @@ var Engine = (function () {
 			// 			// etc...
 			// 		]
 			// } 
-			Engine._bindings[item[BIND_ATTR]] = 
-				Engine._bindings[item[BIND_ATTR]] || (function () {
+			
+			let itemAttr = item.getAttribute(BIND_ATTR);
+			
+			Engine._bindings[itemAttr] = 
+				Engine._bindings[itemAttr] || (function () {
 					var classeur = new Classeur ();
 					
-					Object.defineProperty(Engine.scope,item[BIND_ATTR], {
+					Object.defineProperty(Engine.scope,itemAttr, {
 						set: classeur.setVal,
 						get: classeur.getVal,
 						enumerable:true
