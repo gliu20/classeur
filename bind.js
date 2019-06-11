@@ -32,7 +32,7 @@
 					});
 					
 					return classeur;
-				)();
+			})();
 			
 			// add element to classeur
 			Engine._bindings[item[BIND_ATTR]].addEle(item);
