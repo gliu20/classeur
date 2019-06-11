@@ -1,22 +1,42 @@
 (function () {
 	
+	const BIND_ATTR = "data-cl-bind";
+	
 	var Engine = {};
 	
-	Engine._scope = {};
+	Engine.scope = {};
+	Engine._bindings = {};
 	
-	Engine.addProp = function (scopeName, prop) {
+	Engine.init = function () {
+		var bindableEles = document.querySelectorAll("["+BIND_ATTR+"]");
 		
-		var binder = new Classeur();
-		
-		Object.defineProperty(Engine._scope[scopeName], prop, {
-			set: function (newVal) {
-				
-			},
-			get: function () {
-				return value;
-			},
-			enumerable:true
-		});
+		// group elements by binding attribute value
+		for (var item of bindableEles) {
+			// create ele struct in Engine._bindings as follows:
+			// {
+			// 		"bindAttrValue": [
+			//			element,
+			//			element2,
+			//			element3
+			// 			// etc...
+			// 		]
+			// } 
+			Engine._bindings[item[BIND_ATTR]] = 
+				Engine._bindings[item[BIND_ATTR]] || (function () {
+					var classeur = new Classeur ();
+					
+					Object.defineProperty(Engine.scope,item[BIND_ATTR], {
+						set: classeur.setVal,
+						get: classeur.getVal,
+						enumerable:true
+					});
+					
+					return classeur;
+				)();
+			
+			// add element to classeur
+			Engine._bindings[item[BIND_ATTR]].addEle(item);
+		}
 	}
 	
 })();
