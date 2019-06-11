@@ -1,4 +1,4 @@
-(function () {
+var Engine = (function () {
 	
 	const BIND_ATTR = "data-cl-bind";
 	
@@ -38,7 +38,7 @@
 			Engine._bindings[item[BIND_ATTR]].addEle(item);
 		}
 	}
-	
+	return Engine;
 })();
 
 class Classeur {
